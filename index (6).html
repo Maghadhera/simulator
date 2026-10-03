@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transaction Message Simulator | Demo &amp; Testing Tool</title>
+<meta name="description" content="Generate clearly labeled synthetic mobile-money transaction notifications for software testing, demonstrations and UI prototypes.">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="demo-bar" role="note">DEMO / TEST TOOL — Nothing generated here is a real transaction</div>
+
+<header class="site-header">
+  <div class="wrap header-in">
+    <div class="brand">
+      <h1>Transaction Message Simulator</h1>
+      <p>Create mobile-money transaction notifications for testing and demonstrations.</p>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">Menu</button>
+    <nav id="nav" class="nav" aria-label="Main">
+      <a href="#simulator">Simulator</a>
+      <a href="#history">History</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="simulator" class="grid" aria-label="Simulator">
+    <form id="txForm" class="card" novalidate>
+      <h2>Create Demo Transaction</h2>
+      <div class="presets" role="group" aria-label="Preset examples">
+        <button type="button" class="chip" data-preset="0">Business Payment</button>
+        <button type="button" class="chip" data-preset="1">Small Purchase</button>
+        <button type="button" class="chip" data-preset="2">Large Demo Payment</button>
+      </div>
+
+      <div class="field">
+        <label for="sender_name">Sender Name</label>
+        <input id="sender_name" name="sender_name" type="text" placeholder="John Doe" autocomplete="off" aria-describedby="err_sender_name" required>
+        <p class="err" id="err_sender_name" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="sender_phone">Sender Phone</label>
+        <input id="sender_phone" name="sender_phone" type="tel" inputmode="tel" placeholder="07XXXXXXXX" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="amount">Amount (KES)</label>
+        <input id="amount" name="amount" type="number" min="1" step="0.01" inputmode="decimal" placeholder="1500" aria-describedby="err_amount" required>
+        <p class="err" id="err_amount" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="recipient_name">Recipient / Business Name</label>
+        <input id="recipient_name" name="recipient_name" type="text" placeholder="DM Nature Adventures" autocomplete="off" aria-describedby="err_recipient_name" required>
+        <p class="err" id="err_recipient_name" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="recipient_number">Till / PayBill / Account</label>
+        <input id="recipient_number" name="recipient_number" type="text" placeholder="123456" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="transaction_type">Transaction Type</label>
+        <select id="transaction_type" name="transaction_type">
+          <option>Payment</option>
+          <option>Customer to Business</option>
+          <option>Business to Customer</option>
+          <option>Send Money</option>
+          <option>Deposit</option>
+          <option>Withdrawal</option>
+        </select>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="date">Transaction Date</label>
+          <input id="date" name="date" type="date" aria-describedby="err_date" required>
+          <p class="err" id="err_date" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="time">Transaction Time</label>
+          <input id="time" name="time" type="time" aria-describedby="err_time" required>
+          <p class="err" id="err_time" role="alert"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="reference">Reference / Account</label>
+        <input id="reference" name="reference" type="text" placeholder="ORDER123" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="custom_message">Additional Note</label>
+        <textarea id="custom_message" name="custom_message" rows="3" placeholder="Optional demonstration note"></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn primary">Generate Demo</button>
+        <button type="button" class="btn ghost" id="clearBtn">Clear</button>
+      </div>
+    </form>
+
+    <div class="card preview-card">
+      <h2>Generated Preview</h2>
+      <div class="phone" aria-live="polite">
+        <div class="phone-notch" aria-hidden="true"></div>
+        <article class="notif" id="notif" aria-label="Simulated mobile money notification">
+          
+          <h3 class="notif-title">Simulated Mobile Money Notification</h3>
+          <p class="notif-status" id="pvStatus">Payment completed</p>
+          <p class="notif-amount" id="pvAmount">KES 0.00</p>
+          <dl class="notif-list" id="pvList"></dl>
+          <p class="notif-note" id="pvNote" hidden></p>
+          
+      
+        </article>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="copyBtn">Copy Demo Message</button>
+        <button type="button" class="btn accent" id="downloadBtn">Download Demo Image</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="history" class="card" aria-labelledby="hTitle">
+    <div class="h-head">
+      <h2 id="hTitle">History</h2>
+      <button type="button" class="btn ghost danger" id="clearHistory">Clear all history</button>
+    </div>
+    <p class="muted">Stored only in this browser. Nothing is sent to a server.</p>
+    <ul id="historyList" class="history"></ul>
+  </section>
+
+  <section id="about" class="card" aria-labelledby="aTitle">
+    <h2 id="aTitle">About This Simulator</h2>
+    <p>This application generates synthetic mobile-money transaction notifications for software development, demonstrations, UI testing, education and presentations. It does not process payments and does not connect to any real mobile-money account.</p>
+  </section>
+</main>
+
+<footer class="site-footer">Transaction Message Simulator — DEMO / TEST tool. Not affiliated with any mobile-money provider.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
